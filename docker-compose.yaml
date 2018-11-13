@@ -8,6 +8,24 @@ services:
     depends_on:
       - app
     image: front-envoy:0.1
+    volumes:
+    - log_volume:/var/log/mtail
   app:
     build: app
     image: grpc-ruby:0.1
+  mtail:
+    ports:
+      - "3903:3903"
+    build: mtail
+    image: mtail:0.1
+    volumes:
+      - log_volume:/var/log/mtail
+  prometheus:
+    ports:
+      - "9090:9090"
+    build: prometheus
+    image: prom:0.1
+    depends_on:
+      - mtail
+volumes:
+    log_volume:

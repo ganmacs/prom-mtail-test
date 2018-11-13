@@ -1,0 +1,12 @@
+# simple line counter
+
+counter line_count
+counter envoy_request by method, path
+
+/^/ +
+/(?P<method>[^\t]+)\t/ +
+/(?P<path>[^\t]+)\t/ +
+/$/ {
+  line_count++
+  envoy_request[$method][$path]++
+}

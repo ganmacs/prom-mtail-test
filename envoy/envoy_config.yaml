@@ -14,7 +14,8 @@ static_resources:
           access_log:
           - name: envoy.file_access_log
             config:
-              path: "/dev/stdout"
+              format: "%REQ(:METHOD)%\t%REQ(:PATH)%\t\n"
+              path: "/var/log/mtail/envoy"
           route_config:
             name: local_route
             virtual_hosts:
