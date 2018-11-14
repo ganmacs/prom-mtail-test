@@ -14,7 +14,7 @@ static_resources:
           access_log:
           - name: envoy.file_access_log
             config:
-              format: "%REQ(:METHOD)%\t%REQ(:PATH)%\t\n"
+              format: "%START_TIME%\t%REQ(:METHOD)%\t%REQ(X-ENVOY-ORIGINAL-PATH?:PATH)%\t%PROTOCOL%\t%RESPONSE_CODE%\t%RESPONSE_FLAGS%\t%BYTES_RECEIVED%\t%BYTES_SENT%\t%DURATION%\t%RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)%\t%REQ(X-FORWARDED-FOR)%\t%REQ(USER-AGENT)%\t%REQ(X-REQUEST-ID)%\t%REQ(:AUTHORITY)%\t%UPSTREAM_HOST%\t\n"
               path: "/var/log/mtail/envoy"
           route_config:
             name: local_route

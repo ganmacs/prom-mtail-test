@@ -1,12 +1,25 @@
 # simple line counter
 
 counter line_count
-counter envoy_request by method, path
+counter envoy_request_total by method, path, response_code, user_agent
 
 /^/ +
+/(?P<start_time>[^\t]+)\t/ +
 /(?P<method>[^\t]+)\t/ +
 /(?P<path>[^\t]+)\t/ +
+/(?P<protocol>[^\t]+)\t/ +
+/(?P<response_code>[^\t]+)\t/ +
+/(?P<response_flags>[^\t]+)\t/ +
+/(?P<bytes_received>[^\t]+)\t/ +
+/(?P<bytes_sent>[^\t]+)\t/ +
+/(?P<duration>[^\t]+)\t/ +
+/(?P<x_envoy_upstream_service_time>[^\t]+)\t/ +
+/(?P<x_forwarded_for>[^\t]+)\t/ +
+/(?P<user_agent>[^\t]+)\t/ +
+/(?P<x_request_id>[^\t]+)\t/ +
+/(?P<authority>[^\t]+)\t/ +
+/(?P<upstream_host>[^\t]+)\t/ +
 /$/ {
   line_count++
-  envoy_request[$method][$path]++
+  envoy_request_total[$method][$path][$response_code][$user_agent]++
 }
