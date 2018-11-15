@@ -1,0 +1,3 @@
+#!/bin/bash
+
+envoy -c config.yaml --v2-config-only | tee /var/log/mtail/envoy

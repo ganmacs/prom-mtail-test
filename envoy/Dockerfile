@@ -4,4 +4,6 @@ COPY envoy_config.yaml /config.yaml
 
 RUN mkdir -p /var/log/mtail
 
-CMD ["envoy", "-c", "config.yaml", "--v2-config-only"]
+COPY run_envoy /
+
+CMD ["./run_envoy"]
